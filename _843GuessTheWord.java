@@ -6,6 +6,11 @@ import java.util.Queue;
 public class _843GuessTheWord {
 
     int dist[][];
+    interface Master{
+        default int guess(String word){
+            return 1;
+        }
+    }
 
     public int editDistance(String word1,String word2){
         int count = 0;
