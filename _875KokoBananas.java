@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.rmi.dgc.VMID;
 import java.util.Arrays;
 
 public class _875KokoBananas {
@@ -9,32 +8,36 @@ public class _875KokoBananas {
 
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-        int total = 0;
         for(int i=0;i<piles.length;i++){
             min = Math.min(min,piles[i]);
             max = Math.max(max,piles[i]);
-            total+=piles[i];
         }
 
-        if(min==max)return min;
-
-        int start = min;
-        int end = max;
-        int mid = 0;
-        while(start<=end){
-            mid = (start+end)/2;
-            if(mid*h==total)return mid;
-            else if((mid*h)<total){
-                start = mid+1;
-            }else if((mid*h)>total){
+        int start = min,end = max;
+        while(start<end){
+            int mid = (start+end)/2;
+            int count = countHours(mid,piles);
+            if(count<=h){
                 end = mid-1;
+            }else if(count>h){
+                start = mid+1;
             }
         }
 
-        return mid;
+        return start;
+    }
+
+    public int countHours(int mid,int[] piles){
+        int count=0;
+        for(int b:piles){
+            count+= (b/mid);
+            if(b%mid!=0)++count;
+        }
+        return count;
     }
 
     public static void main(String[] args) {
-        System.out.println(new _875KokoBananas().minEatingSpeed(new int[]{30,11,23,4,20},5));
+        System.out.println(new _875KokoBananas().minEatingSpeed(new int[]{30,11,23,4,20},6));
+
     }
 }

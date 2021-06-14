@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,9 +11,9 @@ public class SegmentTrees {
 
     public static int nextPowerOf2(int num){
 
-        if(num ==0){
+        if(0 == num)
             return 1;
-        }
+
         if(num > 0 && (num & (num-1)) == 0){
             return num;
         }
@@ -36,15 +37,13 @@ public class SegmentTrees {
 
     public static void main(String[] args) {
 
-        SegmentTrees segmentTrees = new SegmentTrees();
-
-        int N = 6;
-        int segTreeSize = nextPowerOf2(N);
-        segmentTrees.segMentTree = new int[2*segTreeSize-1];
-        segmentTrees.arr = new int[]{-2, 0, 3, -5, 2, -1};
-        segmentTrees.constructSegMentTree(0,segmentTrees.arr.length-1,0);
-        System.out.println();
-        List<List<String>>result = new LinkedList();
-
+//        SegmentTrees segmentTrees = new SegmentTrees();
+//
+//        int N = 6;
+//        int segTreeSize = nextPowerOf2(N);
+//        segmentTrees.segMentTree = new int[2*segTreeSize-1];
+//        segmentTrees.arr = new int[]{-2, 0, 3, -5, 2, -1};
+//        segmentTrees.constructSegMentTree(0,segmentTrees.arr.length-1,0);
+        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE).length());
     }
 }

@@ -18,4 +18,12 @@ public class _1056ConfusingNumber {
     public boolean confusingNumber(int n) {
         return isConfusing(String.valueOf(n));
     }
+
+    public static void main(String[] args) {
+        System.out.println(new _1056ConfusingNumber().confusingNumber(000));
+        /*
+        16 - 91
+        616 - 919
+        * */
+    }
 }

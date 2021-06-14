@@ -1,7 +1,6 @@
 package leetcode;
 
 public class _818RaceCar {
-    private int p_max;
     private int max_pos = Integer.MAX_VALUE;
     private int[] power;
     private Integer[] dp;
@@ -24,19 +23,13 @@ public class _818RaceCar {
         if(target == 3) {
             return 2;
         }
-        if(dp[target] != null) {
+        if(dp[target] != null)
             return dp[target];
-        }
 
         int l = log(target, 2);
         int r = l + 1;
         int lpos = power[l] - 1;
         int rpos = power[r] - 1;
-
-        // System.out.println("l: " + l);
-        // System.out.println("lpos: " + lpos);
-        // System.out.println("r: " + r);
-        // System.out.println("rpos: " + rpos);
 
         if(lpos == target) {
             return dp[target] = l;
@@ -47,7 +40,7 @@ public class _818RaceCar {
         int ans = Integer.MAX_VALUE;
         for(int j=0;j<l;j++) {
             int x1 = callMe(target - power[l] + power[j]);
-            x1 = x1 == Integer.MAX_VALUE ? x1 : l + 2 + x1 + j;
+            x1 = x1 == Integer.MAX_VALUE ? x1 : l + 1 + j + 1 + x1;
             ans = Math.min(ans, x1);
         }
         int x2 = callMe(rpos - target);
@@ -68,7 +61,6 @@ public class _818RaceCar {
 
     public int racecar(int target) {
         int max = log(target, 2);
-        p_max = max + 1;
         this.power = calcPower(2, max + 1);
         max_pos = power[max + 1];
         dp = new Integer[max_pos + 1];
@@ -76,6 +68,6 @@ public class _818RaceCar {
     }
 
     public static void main(String[] args) {
-        new _818RaceCar().racecar(6);
+        System.out.println(new _818RaceCar().racecar(20));
     }
 }

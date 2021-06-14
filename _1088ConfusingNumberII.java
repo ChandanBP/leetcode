@@ -1,71 +1,68 @@
 package leetcode;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class _1088ConfusingNumberII {
 
-    int numConfusing = 0;
-    int n;
-    int arr[] = {0,1,6,8,9};
-
-    public boolean isConfusing(String number){
-        StringBuilder sb = new StringBuilder();
-        for(int i=number.length()-1;i>=0;i--){
-            char ch = number.charAt(i);
-            if(ch=='2' || ch=='3' || ch=='4' || ch=='5' || ch=='7')return false;
-            if(ch=='0')sb.append('0');
-            if(ch=='1')sb.append('1');
-            if(ch=='6')sb.append('9');
-            if(ch=='8')sb.append('8');
-            if(ch=='9')sb.append('6');
+    char[][] map = new char[][]{{'0','0'},{'1','1'},{'6','9'},{'8','8'},{'9','6'}};
+    public int confusingNumberII(int N) {
+        //find total number combined from 5 digit <=N
+        //minus palindrome
+        String num = Integer.toString(N);
+        int totalNumber = getTotalNumber(num);
+        for (int i = 1; i <= num.length(); i++){
+            char[] sub = new char[i];
+            totalNumber -= util(sub, num, 0, i-1);
         }
-        return !sb.toString().equals(number);
+        return totalNumber;
     }
 
-    public void addConfusingNumbers(String number){
+    // 321 - [0, 300), [300, 320), [320, 321)
+    private int getTotalNumber(String num){
+        if (num.length() == 0) {
+            return 1;
+        }
+        char fChar = num.charAt(0);
+        //getCount all num that first < num first char 0/1<2
+        int ret = getCount(num) * (int) Math.pow(5, num.length() - 1); // 5 possibiliteis
+        //if first in map, getCount num that first char equal to target
+        if (fChar =='0' || fChar == '1' || fChar == '6' || fChar == '8' || fChar == '9')
+            ret += getTotalNumber(num.substring(1));
+        return ret ;
+    }
 
-        for(int i=0;i<arr.length;i++){
-            String val = number+arr[i];
-            long intval = Long.valueOf(val);
-            if(intval>n)continue;
-            boolean ret = isConfusing(val);
-            if(ret){
-                ++numConfusing;
+    private int getCount(String num){
+        if (num.length()==0) {
+            return 0;
+        }
+        int count = 0;
+        char firstChar = num.charAt(0);
+        for (char[] pair : map){
+            if (pair[0] < firstChar) {
+                count++;
             }
-            addConfusingNumbers(val);
         }
+        return count;
     }
 
-    public int confusingNumberII(int n) {
-        if(n<5)return 0;
-        if(n==6)return 1;
-        if(n<=10)return 2;
-        this.n = n;
-        this.numConfusing=2;
-        for(int i=1;i<arr.length;i++){
-            addConfusingNumbers(String.valueOf(arr[i]));
+    private int util(char[] arr, String num, int left, int right){
+        int count=0;
+        if( left > right){
+            String sb = new String(arr);
+            // compareTo compare dictionary order, 8>20, so compare only when length equal
+            if (sb.length()<num.length() || sb.compareTo(num)<=0)
+                count=1;
+        } else {
+            for(char[] pair: map){
+                if ((left == 0 && pair[0] == '0' && arr.length>1) ||  // Should not start with 0.
+                        (left == right && pair[0] != pair[1])) continue; // mid shouldn't be 6,9
+                arr[left]=pair[0];
+                arr[right]=pair[1];
+                count += util(arr, num, left + 1, right - 1);
+            }
         }
-        return numConfusing;
-    }
-
-    public int test(){
-        try{
-            throw new Exception("");
-        }catch (Exception e){
-            System.out.println("Catch block");
-        }finally {
-            System.out.println("in finally");
-        }
-
-        System.out.println("");
-        return 10;
+        return count;
     }
 
     public static void main(String[] args) {
-        //System.out.println(new _1088ConfusingNumberII().confusingNumberII(1000000000));
-        //System.out.println(new _1088ConfusingNumberII().test());
-        Map<Integer,String>map = Map.of(1,"One",2,"Two",3,"Three");
-        map.forEach((k,v)-> System.out.println(k));
+        System.out.println(new _1088ConfusingNumberII().confusingNumberII(100));
     }
 }
