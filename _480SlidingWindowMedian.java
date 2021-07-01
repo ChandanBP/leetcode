@@ -30,8 +30,6 @@ public class _480SlidingWindowMedian {
 
             if(end==nums.length)break;
 
-            numValidElements = 0;
-
             int leftNum = nums[end-k];
             int rightNum = nums[end];
 
