@@ -10,6 +10,7 @@ public class _1110DeketeNodes {
         TreeNode right;
         TreeNode(int val) { this.val = val; }
     }
+
     TreeNode root;
     LinkedList<TreeNode> result = new LinkedList();
     HashSet<Integer> toBeDeleted = new HashSet();

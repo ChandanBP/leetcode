@@ -1,9 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 public class SegmentTrees {
 
     int arr[];
@@ -39,11 +35,11 @@ public class SegmentTrees {
 
 //        SegmentTrees segmentTrees = new SegmentTrees();
 //
-//        int N = 6;
-//        int segTreeSize = nextPowerOf2(N);
+        int N = 6;
+        int segTreeSize = nextPowerOf2(N);
 //        segmentTrees.segMentTree = new int[2*segTreeSize-1];
 //        segmentTrees.arr = new int[]{-2, 0, 3, -5, 2, -1};
 //        segmentTrees.constructSegMentTree(0,segmentTrees.arr.length-1,0);
-        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE).length());
+
     }
 }

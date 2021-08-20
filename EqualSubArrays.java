@@ -78,7 +78,7 @@ public class EqualSubArrays {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        //EqualSubArrays equalSubArrays = new EqualSubArrays();
+        EqualSubArrays equalSubArrays = new EqualSubArrays();
 
         int N = scanner.nextInt();
         long K = scanner.nextLong();
@@ -110,10 +110,10 @@ public class EqualSubArrays {
             }
         }
 
-//        int segTreeSize = nextPowerOf2(N);
-//        equalSubArrays.segMentTree = new long[2*segTreeSize-1];
-//        equalSubArrays.constructSegMentTree(0,equalSubArrays.arr.length-1,0);
-//        equalSubArrays.getMax();
+        int segTreeSize = nextPowerOf2(N);
+        equalSubArrays.segMentTree = new long[2*segTreeSize-1];
+        equalSubArrays.constructSegMentTree(0,equalSubArrays.arr.length-1,0);
+        equalSubArrays.getMax();
         System.out.println(finalMax==-1?1:finalMax);
     }
 }
